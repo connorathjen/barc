@@ -7,13 +7,20 @@
     <param name="air_drag_coeff" type="double" value="0.01308" />
     <param name="friction" type="double" value="0.01711" />
 
+    <!-- other parameters -->
+    <param name="speed" type="double" value="1.0" />
+    <param name="turn" type="double" value=".5" />
+
 
     <!-- Controller -->
-    <node pkg="labs" type="controller.py" name="pid" />
+    <node pkg="labs" type="my_keyboard.py" name="teleop_keyboard" output="screen"/>
 
     <!-- Simulator -->
     <node pkg="labs" type="vehicle_simulator.py" name="simulator" />
 
     <!-- Record the experiment data -->
     <node pkg="rosbag" type="record" name="rosbag_record" args="-o /home/eecs106a/me131/ -a" />
+
+    <!-- Trajectory Viewer -->
+    <node pkg="labs" type="view_car_trajectory.py" name="car_view_trajectory_node" />
 </launch>

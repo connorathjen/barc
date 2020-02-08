@@ -48,7 +48,7 @@ def vehicle_simulator():
     m	= rospy.get_param("mass")
     Ff    = rospy.get_param("friction")
     x_list     = array([0, 20, 20, 40,  40, 60, 60,  80, 80, 100, 100, 120, 120, 140, 140, 160, 160, 180])
-    theta_list = array([0, 0,  10, 10,  0,  0, -10, -10,  0,  0,  30,  30,  0,   0,   -30, -30, 0,   0])
+    #theta_list = array([0, 0,  10, 10,  0,  0, -10, -10,  0,  0,  30,  30,  0,   0,   -30, -30, 0,   0])
     
     # set node rate
     loop_rate   = 50
@@ -68,7 +68,8 @@ def vehicle_simulator():
     ey   = 0
     epsi = 0
     while not rospy.is_shutdown():
-        theta = interp(x, x_list, theta_list)/180*pi
+        #theta = interp(x, x_list, theta_list)/180*pi
+        theta = 0
         (x, y, psi, v_x) = bikeFE(x, y, psi, v_x, acc, d_f, a0, m, Ff, theta, ts)
         v_y = 0
         r = 0

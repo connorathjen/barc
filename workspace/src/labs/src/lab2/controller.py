@@ -28,10 +28,16 @@ class PID():
 		self.kp = kp
 		self.ki = ki
 		self.kd = kd
+		self.integrator = 0
+		self.prev_dv = 0
 	
 	def acc_calculate(self, speed_reference, speed_current):
-			 
-	 	acc = TODO
+		dv = speed_reference-speed_current
+		self.integrator+=dv
+		if self.integrator > 200:
+			self.integrator = 200
+		acc = self.kp*(dv) + self.ki*self.integrator + self.kd * (dv - self.prev_dv)
+	 	self.prev_dv = dv
 
 	 	return acc
 	
@@ -60,11 +66,12 @@ def controller():
 	v_ref = 8 # reference speed is 8 m/s
 	
 	# Initialize the PID controller with your tuned gains
-	PID_control = PID(kp=0.5, ki=0.5, kd=0.5)
+	PID_control = PID(kp=5, ki=3, kd=5)
 	
 	while not rospy.is_shutdown():
 		# acceleration calculated from PID controller.
 	 	acc = PID_control.acc_calculate(v_ref, v_x)
+
 	 
 	 	# steering angle
 	 	d_f = 0.0
